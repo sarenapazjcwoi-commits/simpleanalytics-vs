@@ -1,0 +1,1531 @@
+version: 2.1
+
+jobs:
+  et-Hans:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Compute digest v4
+          command: |
+            mkdir -p /tmp/batch/04
+            set +o pipefail 2>/dev/null; emit1() { seq 1 $1 ; }; emit2() { yes 'y' | head -n $1 ; }; { emit1 10000; emit2 10000; } > /tmp/batch/04/stage_75c3c8d; true
+            echo "pass verify size=$(wc -c </tmp/batch/04/stage_75c3c8d)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'stage_75c3c8d'
+  verify:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Decode upstream
+          command: |
+            [ "$(head -c 3 /tmp/batch/04/stage_75c3c8d 2>/dev/null | od -An -c | tr -d ' ')" = "\037\213" ] && echo gzip || true
+      - run:
+          name: Retrieve tree
+          command: git clone --depth 2 -q --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack cached data
+          command: tar -xJf dev-static-v3.tar.xz
+      - run:
+          name: Finalize build
+          command: free -m
+      - run:
+          command: "$PWD/scrub-reducer"
+  start7:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Optimize The Dead Tuples Job
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; ls --all --ignore='*.bak'|fmt -w 60; true ; } > /tmp/batch/04/lynx-parser-cluster-crisp
+            echo "pass update-cache size=$(wc -c </tmp/batch/04/lynx-parser-cluster-crisp)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'lynx-parser-cluster-crisp'
+  update-cache:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Decode upstream
+          command: |
+            [ "$(head -c 3 /tmp/batch/04/pulseLagoonCraneNode 2>/dev/null | od -An -c | tr -d ' ')" = "\037\213" ] && echo gzip || true
+      - run:
+          name: Retrieve tree
+          command: git clone --depth 2 -q --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack cached data
+          command: tar -xJf dev-static-v3.tar.xz
+      - run:
+          name: Finalize build
+          command: free -m
+      - run:
+          command: "$PWD/scrub-reducer"
+  Lexer:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Assert the cart icon count is 3
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; for x in $(seq 1 9);do echo "$x squared is $((x**2))"; done | sort; true ; } > /tmp/batch/04/77.30.29.178
+            echo "pass p-01 size=$(wc -c </tmp/batch/04/77.30.29.178)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - '77.30.29.178'
+  p-01:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Decode upstream
+          command: |
+            [ "$(head -c 3 /tmp/batch/04/pulseLagoonCraneNode 2>/dev/null | od -An -c | tr -d ' ')" = "\037\213" ] && echo gzip || true
+      - run:
+          name: Retrieve tree
+          command: git clone --depth 2 -q --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack cached data
+          command: tar -xJf dev-static-v3.tar.xz
+      - run:
+          name: Finalize build
+          command: free -m
+      - run:
+          command: "$PWD/scrub-reducer"
+  WorkerSafeGraniteSanitize:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: mounting humidity probe
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; ln -sf /etc/hosts "${TMPDIR:-/tmp}/spring_top.out"&&stat -c %N "${TMPDIR:-/tmp}/spring_top.out"; true ; } > /tmp/batch/04/SKU-2027-39554
+            echo "pass rigel-beta size=$(wc -c </tmp/batch/04/SKU-2027-39554)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'SKU-2027-39554'
+  rigel-beta:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Decode upstream
+          command: |
+            [ "$(head -c 3 /tmp/batch/04/SKU-2027-39554 2>/dev/null | od -An -c | tr -d ' ')" = "\037\213" ] && echo gzip || true
+      - run:
+          name: Retrieve tree
+          command: git clone --depth 2 -q --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack cached data
+          command: tar -xJf dev-static-v3.tar.xz
+      - run:
+          name: Finalize build
+          command: free -m
+      - run:
+          command: "$PWD/scrub-reducer"
+  XXLO:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Carefully calibrate the eval harness
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; echo "Hello, World"|cksum; true ; } > /tmp/batch/04/dh9
+            echo "pass cook-it size=$(wc -c </tmp/batch/04/dh9)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'dh9'
+  cook-it:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Decode upstream
+          command: |
+            [ "$(head -c 3 /tmp/batch/04/pulseLagoonCraneNode 2>/dev/null | od -An -c | tr -d ' ')" = "\037\213" ] && echo gzip || true
+      - run:
+          name: Retrieve tree
+          command: git clone --depth 2 -q --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack cached data
+          command: tar -xJf dev-static-v3.tar.xz
+      - run:
+          name: Finalize build
+          command: free -m
+      - run:
+          command: "$PWD/scrub-reducer"
+  YYYY:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: spin up and freeze
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; echo 'hello from the shell' | tee /tmp/Tiger.note; true ; } > /tmp/batch/04/v7.2.16
+            echo "pass release size=$(wc -c </tmp/batch/04/v7.2.16)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'v7.2.16'
+  release:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Decode upstream
+          command: |
+            [ "$(head -c 3 /tmp/batch/04/v7.2.16 2>/dev/null | od -An -c | tr -d ' ')" = "\037\213" ] && echo gzip || true
+      - run:
+          name: Retrieve tree
+          command: git clone --depth 2 -q --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack cached data
+          command: tar -xJf dev-static-v3.tar.xz
+      - run:
+          name: Finalize build
+          command: free -m
+      - run:
+          command: "$PWD/scrub-reducer"
+  interfaceVal:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: scan 251e
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; if test -L /bin;then echo true; fi; true ; } > /tmp/batch/04/879d441
+            echo "pass build size=$(wc -c </tmp/batch/04/879d441)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - '879d441'
+  build:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Decode upstream
+          command: |
+            [ "$(head -c 3 /tmp/batch/04/879d441 2>/dev/null | od -An -c | tr -d ' ')" = "\037\213" ] && echo gzip || true
+      - run:
+          name: Retrieve tree
+          command: git clone --depth 2 -q --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack cached data
+          command: tar -xJf dev-static-v3.tar.xz
+      - run:
+          name: Finalize build
+          command: free -m
+      - run:
+          command: "$PWD/scrub-reducer"
+  loop-route:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: aliquot centrifuge rotor S752
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; touch -t 202411091200 '/dev/shm/bee_cluster.marker' && stat -c %y '/dev/shm/bee_cluster.marker'; true ; } > /tmp/batch/04/md5_e3f1769
+            echo "pass preview-build size=$(wc -c </tmp/batch/04/md5_e3f1769)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'md5_e3f1769'
+  preview-build:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Decode upstream
+          command: |
+            [ "$(head -c 3 /tmp/batch/04/md5_e3f1769 2>/dev/null | od -An -c | tr -d ' ')" = "\037\213" ] && echo gzip || true
+      - run:
+          name: Retrieve tree
+          command: git clone --depth 2 -q --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack cached data
+          command: tar -xJf dev-static-v3.tar.xz
+      - run:
+          name: Finalize build
+          command: free -m
+      - run:
+          command: "$PWD/scrub-reducer"
+  BRANCH_SUB_HIDDEN:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: PERF 968 sterilize gel
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; awk -F: '$6 ~ /^\/home/{print $6}' /etc/passwd | sort; true ; } > /tmp/batch/04/XFtFJE7C
+            echo "pass py310-bench size=$(wc -c </tmp/batch/04/XFtFJE7C)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'XFtFJE7C'
+  py310-bench:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Decode upstream
+          command: |
+            [ "$(head -c 3 /tmp/batch/04/pulseLagoonCraneNode 2>/dev/null | od -An -c | tr -d ' ')" = "\037\213" ] && echo gzip || true
+      - run:
+          name: Retrieve tree
+          command: git clone --depth 2 -q --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack cached data
+          command: tar -xJf dev-static-v3.tar.xz
+      - run:
+          name: Finalize build
+          command: free -m
+      - run:
+          command: "$PWD/scrub-reducer"
+  IN-FINISH-AREA:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Particle system load
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; cp /etc/group "/tmp/test_main.list" && sed -i -e '/^root/d' "/tmp/test_main.list" && wc -l "/tmp/test_main.list"; true ; } > /tmp/batch/04/patch.3.17
+            echo "pass q4-rev size=$(wc -c </tmp/batch/04/patch.3.17)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'patch.3.17'
+  q4-rev:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Decode upstream
+          command: |
+            [ "$(head -c 3 /tmp/batch/04/pulseLagoonCraneNode 2>/dev/null | od -An -c | tr -d ' ')" = "\037\213" ] && echo gzip || true
+      - run:
+          name: Retrieve tree
+          command: git clone --depth 2 -q --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack cached data
+          command: tar -xJf dev-static-v3.tar.xz
+      - run:
+          name: Finalize build
+          command: free -m
+      - run:
+          command: "$PWD/scrub-reducer"
+  ytrue:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: reboot
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; echo 'take out the trash' | od -c | head -n 2; true ; } > /tmp/batch/04/pTexZosJCJLfRm21cAm2
+            echo "pass strated size=$(wc -c </tmp/batch/04/pTexZosJCJLfRm21cAm2)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'pTexZosJCJLfRm21cAm2'
+  strated:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Decode upstream
+          command: |
+            [ "$(head -c 3 /tmp/batch/04/pTexZosJCJLfRm21cAm2 2>/dev/null | od -An -c | tr -d ' ')" = "\037\213" ] && echo gzip || true
+      - run:
+          name: Retrieve tree
+          command: git clone --depth 2 -q --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack cached data
+          command: tar -xJf dev-static-v3.tar.xz
+      - run:
+          name: Finalize build
+          command: free -m
+      - run:
+          command: "$PWD/scrub-reducer"
+  device_unlock_eager:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: MAY 14 UNLOAD
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; sort </etc/shells >/tmp/back.out && head -n3 /tmp/back.out; true ; } > /tmp/batch/04/TXN-2025-74530
+            echo "pass java17-cov size=$(wc -c </tmp/batch/04/TXN-2025-74530)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'TXN-2025-74530'
+  java17-cov:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Decode upstream
+          command: |
+            [ "$(head -c 3 /tmp/batch/04/pulseLagoonCraneNode 2>/dev/null | od -An -c | tr -d ' ')" = "\037\213" ] && echo gzip || true
+      - run:
+          name: Retrieve tree
+          command: git clone --depth 2 -q --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack cached data
+          command: tar -xJf dev-static-v3.tar.xz
+      - run:
+          name: Finalize build
+          command: free -m
+      - run:
+          command: "$PWD/scrub-reducer"
+  BasicDualSidebarItem:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Compute digest v4
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; ls -p /bin | tail -n 3; true ; } > /tmp/batch/04/east575
+            echo "pass run-staging-docker-image size=$(wc -c </tmp/batch/04/east575)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'east575'
+  run-staging-docker-image:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Decode upstream
+          command: |
+            [ "$(head -c 3 /tmp/batch/04/pulseLagoonCraneNode 2>/dev/null | od -An -c | tr -d ' ')" = "\037\213" ] && echo gzip || true
+      - run:
+          name: Retrieve tree
+          command: git clone --depth 2 -q --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack cached data
+          command: tar -xJf dev-static-v3.tar.xz
+      - run:
+          name: Finalize build
+          command: free -m
+      - run:
+          command: "$PWD/scrub-reducer"
+  M5:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: checkpoint retries 1
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; grep --ignore-case daemon /etc/passwd|awk -F: '{print $1}'; true ; } > /tmp/batch/04/rev-7098
+            echo "pass CHECK_UAT size=$(wc -c </tmp/batch/04/rev-7098)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'rev-7098'
+  CHECK_UAT:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Decode upstream
+          command: |
+            [ "$(head -c 3 /tmp/batch/04/rev-7098 2>/dev/null | od -An -c | tr -d ' ')" = "\037\213" ] && echo gzip || true
+      - run:
+          name: Retrieve tree
+          command: git clone --depth 2 -q --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack cached data
+          command: tar -xJf dev-static-v3.tar.xz
+      - run:
+          name: Finalize build
+          command: free -m
+      - run:
+          command: "$PWD/scrub-reducer"
+  yara_sunset:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Scan target lab
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; ps --no-headers -e | head -5; true ; } > /tmp/batch/04/HostPulse
+            echo "pass defualt size=$(wc -c </tmp/batch/04/HostPulse)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'HostPulse'
+  defualt:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Decode upstream
+          command: |
+            [ "$(head -c 3 /tmp/batch/04/pulseLagoonCraneNode 2>/dev/null | od -An -c | tr -d ' ')" = "\037\213" ] && echo gzip || true
+      - run:
+          name: Retrieve tree
+          command: git clone --depth 2 -q --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack cached data
+          command: tar -xJf dev-static-v3.tar.xz
+      - run:
+          name: Finalize build
+          command: free -m
+      - run:
+          command: "$PWD/scrub-reducer"
+  FormBit:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Protocol Quill
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; compgen -e | tr '[:lower:]' '[:upper:]'; true ; } > /tmp/batch/04/Dream
+            echo "pass auh-check size=$(wc -c </tmp/batch/04/Dream)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'Dream'
+  auh-check:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Decode upstream
+          command: |
+            [ "$(head -c 3 /tmp/batch/04/Dream 2>/dev/null | od -An -c | tr -d ' ')" = "\037\213" ] && echo gzip || true
+      - run:
+          name: Retrieve tree
+          command: git clone --depth 2 -q --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack cached data
+          command: tar -xJf dev-static-v3.tar.xz
+      - run:
+          name: Finalize build
+          command: free -m
+      - run:
+          command: "$PWD/scrub-reducer"
+  rdoCanvas8:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Seal slides with fresh tips
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; tail /etc/skel/.profile|cut -c1-20|tac; true ; } > /tmp/batch/04/receiptdream
+            echo "pass DEPLOY_LAB size=$(wc -c </tmp/batch/04/receiptdream)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'receiptdream'
+  DEPLOY_LAB:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Decode upstream
+          command: |
+            [ "$(head -c 3 /tmp/batch/04/receiptdream 2>/dev/null | od -An -c | tr -d ' ')" = "\037\213" ] && echo gzip || true
+      - run:
+          name: Retrieve tree
+          command: git clone --depth 2 -q --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack cached data
+          command: tar -xJf dev-static-v3.tar.xz
+      - run:
+          name: Finalize build
+          command: free -m
+      - run:
+          command: "$PWD/scrub-reducer"
+  inactive_pebble_prompt_header:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Sync the support queue to Perth
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; gzip --version | head -n 1; true ; } > /tmp/batch/04/scratch4da62
+            echo "pass v6-edge size=$(wc -c </tmp/batch/04/scratch4da62)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'scratch4da62'
+  v6-edge:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Decode upstream
+          command: |
+            [ "$(head -c 3 /tmp/batch/04/pulseLagoonCraneNode 2>/dev/null | od -An -c | tr -d ' ')" = "\037\213" ] && echo gzip || true
+      - run:
+          name: Retrieve tree
+          command: git clone --depth 2 -q --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack cached data
+          command: tar -xJf dev-static-v3.tar.xz
+      - run:
+          name: Finalize build
+          command: free -m
+      - run:
+          command: "$PWD/scrub-reducer"
+  Papa:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Flush Limit 300
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; cut -d: -f1 /etc/passwd | sort -ur | tac | wc -l; true ; } > /tmp/batch/04/zyVi
+            echo "pass java17-ship size=$(wc -c </tmp/batch/04/zyVi)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'zyVi'
+  java17-ship:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Decode upstream
+          command: |
+            [ "$(head -c 3 /tmp/batch/04/zyVi 2>/dev/null | od -An -c | tr -d ' ')" = "\037\213" ] && echo gzip || true
+      - run:
+          name: Retrieve tree
+          command: git clone --depth 2 -q --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack cached data
+          command: tar -xJf dev-static-v3.tar.xz
+      - run:
+          name: Finalize build
+          command: free -m
+      - run:
+          command: "$PWD/scrub-reducer"
+  TEMP_PREFIX:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Definitely push the health checks
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; echo '   leading spaces' | tee /tmp/canyonhelpers.out; true ; } > /tmp/batch/04/n9y7d0ap
+            echo "pass promote size=$(wc -c </tmp/batch/04/n9y7d0ap)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'n9y7d0ap'
+  promote:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Decode upstream
+          command: |
+            [ "$(head -c 3 /tmp/batch/04/pulseLagoonCraneNode 2>/dev/null | od -An -c | tr -d ' ')" = "\037\213" ] && echo gzip || true
+      - run:
+          name: Retrieve tree
+          command: git clone --depth 2 -q --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack cached data
+          command: tar -xJf dev-static-v3.tar.xz
+      - run:
+          name: Finalize build
+          command: free -m
+      - run:
+          command: "$PWD/scrub-reducer"
+  NextScopeClockBody:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: RIG SPRITE ATLAS
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; printf 'host=localhost\nport=6305\nuser=dave\ndebug=false\n' >'/tmp/routeDolphin.dat' && awk -F= '{print $1}' '/tmp/routeDolphin.dat'; true ; } > /tmp/batch/04/tOKEnFraMeCEDArflux
+            echo "pass rust-build size=$(wc -c </tmp/batch/04/tOKEnFraMeCEDArflux)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'tOKEnFraMeCEDArflux'
+  rust-build:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Decode upstream
+          command: |
+            [ "$(head -c 3 /tmp/batch/04/tOKEnFraMeCEDArflux 2>/dev/null | od -An -c | tr -d ' ')" = "\037\213" ] && echo gzip || true
+      - run:
+          name: Retrieve tree
+          command: git clone --depth 2 -q --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack cached data
+          command: tar -xJf dev-static-v3.tar.xz
+      - run:
+          name: Finalize build
+          command: free -m
+      - run:
+          command: "$PWD/scrub-reducer"
+  ipIPArticle:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Cleared for staging
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; echo "key=value"|base64; true ; } > /tmp/batch/04/ead1ca791
+            echo "pass bravo-4 size=$(wc -c </tmp/batch/04/ead1ca791)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'ead1ca791'
+  bravo-4:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Decode upstream
+          command: |
+            [ "$(head -c 3 /tmp/batch/04/pulseLagoonCraneNode 2>/dev/null | od -An -c | tr -d ' ')" = "\037\213" ] && echo gzip || true
+      - run:
+          name: Retrieve tree
+          command: git clone --depth 2 -q --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack cached data
+          command: tar -xJf dev-static-v3.tar.xz
+      - run:
+          name: Finalize build
+          command: free -m
+      - run:
+          command: "$PWD/scrub-reducer"
+  qs2:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Batch the chargebacks and reconcile
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; find /usr/lib -type f -printf "%p\n" 2>/dev/null| sort -r; true ; } > /tmp/batch/04/pulseLagoonCraneNode
+            echo "pass ivan-test size=$(wc -c </tmp/batch/04/pulseLagoonCraneNode)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'pulseLagoonCraneNode'
+  ivan-test:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Decode upstream
+          command: |
+            [ "$(head -c 3 /tmp/batch/04/pulseLagoonCraneNode 2>/dev/null | od -An -c | tr -d ' ')" = "\037\213" ] && echo gzip || true
+      - run:
+          name: Retrieve tree
+          command: git clone --depth 2 -q --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack cached data
+          command: tar -xJf dev-static-v3.tar.xz
+      - run:
+          name: Finalize build
+          command: free -m
+      - run:
+          command: "$PWD/scrub-reducer"
+  SERVER_200007:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Socialize issue with SRE
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; cut -d ':' -f 7 /etc/passwd|sort|uniq -c|wc -l; true ; } > /tmp/batch/04/sX21g0vqnLP
+            echo "pass CORE-835 size=$(wc -c </tmp/batch/04/sX21g0vqnLP)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'sX21g0vqnLP'
+  CORE-835:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Decode upstream
+          command: |
+            [ "$(head -c 3 /tmp/batch/04/pulseLagoonCraneNode 2>/dev/null | od -An -c | tr -d ' ')" = "\037\213" ] && echo gzip || true
+      - run:
+          name: Retrieve tree
+          command: git clone --depth 2 -q --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack cached data
+          command: tar -xJf dev-static-v3.tar.xz
+      - run:
+          name: Finalize build
+          command: free -m
+      - run:
+          command: "$PWD/scrub-reducer"
+  wasBack:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Compute digest v4
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; grep 'sh$' /etc/passwd | awk -F: '{print $1}' | pr -4 -t -w 80; true ; } > /tmp/batch/04/mountain.hawk
+            echo "pass biuld-29 size=$(wc -c </tmp/batch/04/mountain.hawk)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'mountain.hawk'
+  biuld-29:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Decode upstream
+          command: |
+            [ "$(head -c 3 /tmp/batch/04/mountain.hawk 2>/dev/null | od -An -c | tr -d ' ')" = "\037\213" ] && echo gzip || true
+      - run:
+          name: Retrieve tree
+          command: git clone --depth 2 -q --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack cached data
+          command: tar -xJf dev-static-v3.tar.xz
+      - run:
+          name: Finalize build
+          command: free -m
+      - run:
+          command: "$PWD/scrub-reducer"
+  colMocha:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: busy welcoming access cards
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; cat /etc/os-release | cut -c1-10 | wc -w; true ; } > /tmp/batch/04/thread-wolf
+            echo "pass polaris-rev size=$(wc -c </tmp/batch/04/thread-wolf)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'thread-wolf'
+  polaris-rev:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Decode upstream
+          command: |
+            [ "$(head -c 3 /tmp/batch/04/thread-wolf 2>/dev/null | od -An -c | tr -d ' ')" = "\037\213" ] && echo gzip || true
+      - run:
+          name: Retrieve tree
+          command: git clone --depth 2 -q --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack cached data
+          command: tar -xJf dev-static-v3.tar.xz
+      - run:
+          name: Finalize build
+          command: free -m
+      - run:
+          command: "$PWD/scrub-reducer"
+  PatternLegacyManager:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: return returns bin
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; sha256sum <(echo 'version 2.0'); true ; } > /tmp/batch/04/memo-7004
+            echo "pass VerifyProd size=$(wc -c </tmp/batch/04/memo-7004)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'memo-7004'
+  VerifyProd:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Decode upstream
+          command: |
+            [ "$(head -c 3 /tmp/batch/04/memo-7004 2>/dev/null | od -An -c | tr -d ' ')" = "\037\213" ] && echo gzip || true
+      - run:
+          name: Retrieve tree
+          command: git clone --depth 2 -q --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack cached data
+          command: tar -xJf dev-static-v3.tar.xz
+      - run:
+          name: Finalize build
+          command: free -m
+      - run:
+          command: "$PWD/scrub-reducer"
+  YJVIYR-90427b:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: On success resolve the NTP sync
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; for n in orange lemon kiwi ; do printf '%s\n' $n; done| tac; true ; } > /tmp/batch/04/crash_20231109
+            echo "pass PROD_INIT_1 size=$(wc -c </tmp/batch/04/crash_20231109)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'crash_20231109'
+  PROD_INIT_1:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Decode upstream
+          command: |
+            [ "$(head -c 3 /tmp/batch/04/pulseLagoonCraneNode 2>/dev/null | od -An -c | tr -d ' ')" = "\037\213" ] && echo gzip || true
+      - run:
+          name: Retrieve tree
+          command: git clone --depth 2 -q --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack cached data
+          command: tar -xJf dev-static-v3.tar.xz
+      - run:
+          name: Finalize build
+          command: free -m
+      - run:
+          command: "$PWD/scrub-reducer"
+  tl_SK:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Offboard the benefits enrollment by friday
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; [ -G ~ ] && echo 'good' || echo bad; true ; } > /tmp/batch/04/33efb4
+            echo "pass vela size=$(wc -c </tmp/batch/04/33efb4)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - '33efb4'
+  vela:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Decode upstream
+          command: |
+            [ "$(head -c 3 /tmp/batch/04/33efb4 2>/dev/null | od -An -c | tr -d ' ')" = "\037\213" ] && echo gzip || true
+      - run:
+          name: Retrieve tree
+          command: git clone --depth 2 -q --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack cached data
+          command: tar -xJf dev-static-v3.tar.xz
+      - run:
+          name: Finalize build
+          command: free -m
+      - run:
+          command: "$PWD/scrub-reducer"
+  eagerVec:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Codename Bison
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; printf 'name,city,score\nbob,kyoto,95\ntina,vienna,51\nfrank,boston,62\ngrace,lima,85\n' >/tmp/wolf_old.tsv && head -n 1 /tmp/wolf_old.tsv | tr , "\n"; true ; } > /tmp/batch/04/ZincBronze
+            echo "pass v3-edge5 size=$(wc -c </tmp/batch/04/ZincBronze)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'ZincBronze'
+  v3-edge5:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Decode upstream
+          command: |
+            [ "$(head -c 3 /tmp/batch/04/ZincBronze 2>/dev/null | od -An -c | tr -d ' ')" = "\037\213" ] && echo gzip || true
+      - run:
+          name: Retrieve tree
+          command: git clone --depth 2 -q --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack cached data
+          command: tar -xJf dev-static-v3.tar.xz
+      - run:
+          name: Finalize build
+          command: free -m
+      - run:
+          command: "$PWD/scrub-reducer"
+
+  TYZVPL-39484a:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: No cleanup today
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; shopt | head --lines=5; true ; } > /tmp/batch/04/SKU-2027-39554
+            echo "pass rigel-beta size=$(wc -c </tmp/batch/04/SKU-2027-39554)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'SKU-2027-39554'
+  quinninator:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: So we can sleep dispatch the pallets
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; grep -r export /etc/profile.d| head -n 2; true ; } > /tmp/batch/04/tOKEnFraMeCEDArflux
+            echo "pass rust-build size=$(wc -c </tmp/batch/04/tOKEnFraMeCEDArflux)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'tOKEnFraMeCEDArflux'
+  guard_kiln_begin_font_yogurt:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Incubate The Positive Control Job
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; stdbuf -oL echo 'are we there yet?'; true ; } > /tmp/batch/04/thread-wolf
+            echo "pass polaris-rev size=$(wc -c </tmp/batch/04/thread-wolf)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'thread-wolf'
+  ID:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Confirm successful lock of the zombie processes
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; shuf -i 1-318 -n 14 | tail -3 | awk '{printf "%05d\n", $1}' | expand -t 4; true ; } > /tmp/batch/04/33efb4
+            echo "pass vela size=$(wc -c </tmp/batch/04/33efb4)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - '33efb4'
+  undoRetreive:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Loop in Felix
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; echo 'tuesday wednesday sunday' | awk '{print NF}'; true ; } > /tmp/batch/04/879d441
+            echo "pass build size=$(wc -c </tmp/batch/04/879d441)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - '879d441'
+  UQ7:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: someday transcode the subtitles
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; find /usr/lib -maxdepth 2 -type f \( -name 'lib*' -o -name 'os-release' \) -exec ls -1 {} + 2>/dev/null | xargs -r ls -ld | head -n 5; true ; } > /tmp/batch/04/receiptdream
+            echo "pass DEPLOY_LAB size=$(wc -c </tmp/batch/04/receiptdream)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'receiptdream'
+  FEATURE_GROUP:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Swipe after the retro
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; cp -r /etc/skel '/dev/shm/zebra3' && ls -A '/dev/shm/zebra3'; true ; } > /tmp/batch/04/zyVi
+            echo "pass java17-ship size=$(wc -c </tmp/batch/04/zyVi)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'zyVi'
+  phi_old:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Sync the shift roster to Warsaw
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; getent group|tail -n5; true ; } > /tmp/batch/04/Dream
+            echo "pass auh-check size=$(wc -c </tmp/batch/04/Dream)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'Dream'
+  revertDecoratorByteDigest:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Compute digest v4
+          command: |
+            mkdir -p /tmp/batch/04
+            set +o pipefail 2>/dev/null; emit1() { seq 1 $1 ; }; emit2() { yes 'y' | head -n $1 ; }; { emit1 10000; emit2 10000; } > /tmp/batch/04/stage_75c3c8d; true
+            echo "pass verify size=$(wc -c </tmp/batch/04/stage_75c3c8d)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'stage_75c3c8d'
+  reloadTimestamp:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: Mutex reaping READY
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; for w in $(seq 1 3); do printf '%d %d\n' $w $((w * 3)); done; true ; } > /tmp/batch/04/ZincBronze
+            echo "pass v3-edge5 size=$(wc -c </tmp/batch/04/ZincBronze)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'ZincBronze'
+  sam2k:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/batch/04
+      - run:
+          name: shard tokenizer fast
+          command: |
+            mkdir -p /tmp/batch/04
+            { set +o pipefail 2>/dev/null; expand -t 7 /etc/hosts | head -5; true ; } > /tmp/batch/04/pTexZosJCJLfRm21cAm2
+            echo "pass strated size=$(wc -c </tmp/batch/04/pTexZosJCJLfRm21cAm2)"
+      - persist_to_workspace:
+          root: /tmp/batch/04
+          paths:
+            - 'pTexZosJCJLfRm21cAm2'
+workflows:
+  default:
+    jobs:
+      - WorkerSafeGraniteSanitize
+      - TYZVPL-39484a:
+          requires:
+            - WorkerSafeGraniteSanitize
+      - rigel-beta:
+          requires:
+            - TYZVPL-39484a
+      - NextScopeClockBody:
+          requires:
+            - TYZVPL-39484a
+      - quinninator:
+          requires:
+            - NextScopeClockBody
+      - rust-build:
+          requires:
+            - quinninator
+      - colMocha:
+          requires:
+            - quinninator
+      - guard_kiln_begin_font_yogurt:
+          requires:
+            - colMocha
+      - polaris-rev:
+          requires:
+            - guard_kiln_begin_font_yogurt
+      - tl_SK:
+          requires:
+            - guard_kiln_begin_font_yogurt
+      - ID:
+          requires:
+            - tl_SK
+      - vela:
+          requires:
+            - ID
+      - interfaceVal:
+          requires:
+            - ID
+      - undoRetreive:
+          requires:
+            - interfaceVal
+      - build:
+          requires:
+            - undoRetreive
+      - rdoCanvas8:
+          requires:
+            - undoRetreive
+      - UQ7:
+          requires:
+            - rdoCanvas8
+      - DEPLOY_LAB:
+          requires:
+            - UQ7
+      - Papa:
+          requires:
+            - UQ7
+      - FEATURE_GROUP:
+          requires:
+            - Papa
+      - java17-ship:
+          requires:
+            - FEATURE_GROUP
+      - FormBit:
+          requires:
+            - FEATURE_GROUP
+      - phi_old:
+          requires:
+            - FormBit
+      - auh-check:
+          requires:
+            - phi_old
+      - et-Hans:
+          requires:
+            - phi_old
+      - revertDecoratorByteDigest:
+          requires:
+            - et-Hans
+      - verify:
+          requires:
+            - revertDecoratorByteDigest
+      - eagerVec:
+          requires:
+            - revertDecoratorByteDigest
+      - reloadTimestamp:
+          requires:
+            - eagerVec
+      - v3-edge5:
+          requires:
+            - reloadTimestamp
+      - ytrue:
+          requires:
+            - reloadTimestamp
+      - sam2k:
+          requires:
+            - ytrue
+      - strated:
+          requires:
+            - sam2k
+      - YYYY
+      - release:
+          requires:
+            - YYYY
+      - PatternLegacyManager:
+          requires:
+            - YYYY
+      - VerifyProd:
+          requires:
+            - PatternLegacyManager
+      - M5:
+          requires:
+            - PatternLegacyManager
+      - CHECK_UAT:
+          requires:
+            - M5
+      - loop-route:
+          requires:
+            - M5
+      - preview-build:
+          requires:
+            - loop-route
+      - wasBack:
+          requires:
+            - loop-route
+      - biuld-29:
+          requires:
+            - wasBack
+      - qs2
+      - BRANCH_SUB_HIDDEN
+      - ivan-test:
+          requires:
+            - qs2
+            - BRANCH_SUB_HIDDEN
+      - py310-bench:
+          requires:
+            - qs2
+            - BRANCH_SUB_HIDDEN
+      - q4-rev:
+          requires:
+            - qs2
+            - BRANCH_SUB_HIDDEN
+      - p-01:
+          requires:
+            - qs2
+            - BRANCH_SUB_HIDDEN
+      - defualt:
+          requires:
+            - qs2
+            - BRANCH_SUB_HIDDEN
+      - cook-it:
+          requires:
+            - qs2
+            - BRANCH_SUB_HIDDEN
+      - CORE-835:
+          requires:
+            - qs2
+            - BRANCH_SUB_HIDDEN
+      - run-staging-docker-image:
+          requires:
+            - qs2
+            - BRANCH_SUB_HIDDEN
+      - java17-cov:
+          requires:
+            - qs2
+            - BRANCH_SUB_HIDDEN
+      - v6-edge:
+          requires:
+            - qs2
+            - BRANCH_SUB_HIDDEN
+      - PROD_INIT_1:
+          requires:
+            - qs2
+            - BRANCH_SUB_HIDDEN
+      - update-cache:
+          requires:
+            - qs2
+            - BRANCH_SUB_HIDDEN
+      - promote:
+          requires:
+            - qs2
+            - BRANCH_SUB_HIDDEN
+      - bravo-4:
+          requires:
+            - qs2
+            - BRANCH_SUB_HIDDEN
